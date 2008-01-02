@@ -13,6 +13,7 @@ Source0:	http://download.berlios.de/radiusclient-ng/%{name}-%{version}.tar.bz2
 Patch0:		radiusclient-ng-0.5.2-DESTDIR.diff
 #Obsoletes:	radiusclient-utils
 BuildRequires:	libtool
+BuildRoot:	%{_tmppath}/%{name}-%{version}-root
 
 %description
 Radiusclient is a /bin/login replacement which gets called by a getty
