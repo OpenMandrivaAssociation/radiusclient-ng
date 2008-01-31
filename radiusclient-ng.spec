@@ -1,18 +1,15 @@
 %define	major 2
-%define libname %mklibname radiusclient-ng %{major}
-#%%define oldlibname %mklibname radius 0
+%define libname     %mklibname radiusclient-ng %{major}
+%define develname	%mklibname %{name} -d
 
 Summary:	Radiusclient library and tools
 Name:		radiusclient-ng
-Version:	0.5.2
-Release:	%mkrel 4
+Version:	0.5.6
+Release:	%mkrel 1
 License:	BSD
 Group:		System/Servers
 URL:		http://developer.berlios.de/projects/radiusclient-ng/
-Source0:	http://download.berlios.de/radiusclient-ng/%{name}-%{version}.tar.bz2
-Patch0:		radiusclient-ng-0.5.2-DESTDIR.diff
-#Obsoletes:	radiusclient-utils
-BuildRequires:	libtool
+Source0:	http://download.berlios.de/radiusclient-ng/%{name}-%{version}.tar.gz
 BuildRoot:	%{_tmppath}/%{name}-%{version}-root
 
 %description
@@ -34,29 +31,24 @@ Configuration files required for Radiusclient
 Summary:	Radiusclient library
 Group:          System/Libraries
 Requires:	%{name}-conf = %{version}
-#Obsoletes:	%{oldlibname}
 
 %description -n	%{libname}
 Libraries required for Radiusclient
 
-%package -n	%{libname}-devel
+%package -n	%{develname}
 Summary:	Header files and development documentation for %{name}
 Group:		Development/C
-Requires:	%{libname} = %{version}
-Provides:	%{name}-devel lib%{name}-devel
-#Obsoletes:	libradius-devel %{oldlibname}-devel
+Requires:	%{libname} = %{version}-%{release}
+Provides:	%{name}-devel
+Obsoletes:	%mklibname %{name} 2 -d
 
-%description -n	%{libname}-devel
+%description -n	%{develname}
 Header files and development documentation for %{name}.
 
 %prep
-
 %setup -q
-%patch0 -p0
 
 %build
-autoreconf
-
 %configure2_5x \
 	--enable-shadow \
 	--enable-scp
@@ -93,7 +85,7 @@ cd -
 %defattr(-,root,root)
 %attr(0755,root,root) %{_libdir}/lib*.so.*
 
-%files -n %{libname}-devel
+%files -n %{develname}
 %defattr(-,root,root)
 %attr(0755,root,root) %{_libdir}/lib*.so
 %attr(0644,root,root) %{_libdir}/lib*.la
