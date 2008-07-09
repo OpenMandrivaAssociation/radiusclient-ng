@@ -1,24 +1,23 @@
 %define	major 2
-%define libname     %mklibname radiusclient-ng %{major}
-%define develname	%mklibname %{name} -d
+%define libname %mklibname radiusclient-ng %{major}
+%define develname %mklibname %{name} -d
 
 Summary:	Radiusclient library and tools
 Name:		radiusclient-ng
 Version:	0.5.6
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	BSD
 Group:		System/Servers
 URL:		http://developer.berlios.de/projects/radiusclient-ng/
 Source0:	http://download.berlios.de/radiusclient-ng/%{name}-%{version}.tar.gz
-BuildRoot:	%{_tmppath}/%{name}-%{version}-root
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
-Radiusclient is a /bin/login replacement which gets called by a getty
-to log in a user and to setup the user's login environment. Normal
-login programs just check the login name and password which the user
-entered against the local password file (/etc/passwd, /etc/shadow). In
-contrast to that Radiusclient also uses the RADIUS protocol to
-authenticate the user.
+Radiusclient is a /bin/login replacement which gets called by a getty to log in
+a user and to setup the user's login environment. Normal login programs just
+check the login name and password which the user entered against the local
+password file (/etc/passwd, /etc/shadow). In contrast to that Radiusclient also
+uses the RADIUS protocol to authenticate the user.
 
 %package	conf
 Summary:	Radiusclient configuration files
@@ -46,17 +45,18 @@ Obsoletes:	%mklibname %{name} 2 -d
 Header files and development documentation for %{name}.
 
 %prep
+
 %setup -q
 
 %build
 %configure2_5x \
-	--enable-shadow \
-	--enable-scp
+    --enable-shadow \
+    --enable-scp
 
 %make
 
 %install
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
+rm -rf %{buildroot}
 
 %makeinstall_std
 
@@ -74,7 +74,7 @@ cd -
 %endif
 
 %clean
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
+rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
@@ -95,5 +95,3 @@ cd -
 %attr(0644,root,root) %{_libdir}/lib*.la
 %attr(0644,root,root) %{_libdir}/lib*.a
 %{_includedir}/*
-
-
