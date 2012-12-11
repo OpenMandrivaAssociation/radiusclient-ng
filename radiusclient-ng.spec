@@ -5,12 +5,11 @@
 Summary:	Radiusclient library and tools
 Name:		radiusclient-ng
 Version:	0.5.6
-Release:	%mkrel 3
+Release:	3
 License:	BSD
 Group:		System/Servers
 URL:		http://developer.berlios.de/projects/radiusclient-ng/
 Source0:	http://download.berlios.de/radiusclient-ng/%{name}-%{version}.tar.gz
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 Radiusclient is a /bin/login replacement which gets called by a getty to log in
@@ -56,8 +55,6 @@ Header files and development documentation for %{name}.
 %make
 
 %install
-rm -rf %{buildroot}
-
 %makeinstall_std
 
 # rename these to prevent file clashes with the old package
@@ -65,19 +62,7 @@ cd %{buildroot}%{_sbindir}
 for i in *; do mv ${i} ${i}-ng; done
 cd -
 
-%if %mdkversion < 200900
-%post -n %{libname} -p /sbin/ldconfig
-%endif
-
-%if %mdkversion < 200900
-%postun -n %{libname} -p /sbin/ldconfig
-%endif
-
-%clean
-rm -rf %{buildroot}
-
 %files
-%defattr(-,root,root)
 %doc BUGS CHANGES README* doc/*.html
 %attr(0755,root,root) %{_sbindir}/*
 
@@ -90,8 +75,61 @@ rm -rf %{buildroot}
 %attr(0755,root,root) %{_libdir}/lib*.so.*
 
 %files -n %{develname}
-%defattr(-,root,root)
 %attr(0755,root,root) %{_libdir}/lib*.so
-%attr(0644,root,root) %{_libdir}/lib*.la
 %attr(0644,root,root) %{_libdir}/lib*.a
 %{_includedir}/*
+
+
+%changelog
+* Tue Sep 08 2009 Thierry Vignaud <tvignaud@mandriva.com> 0.5.6-3mdv2010.0
++ Revision: 433050
+- rebuild
+
+* Wed Jul 09 2008 Oden Eriksson <oeriksson@mandriva.com> 0.5.6-2mdv2009.0
++ Revision: 233095
+- rebuild
+
+  + Pixel <pixel@mandriva.com>
+    - do not call ldconfig in %%post/%%postun, it is now handled by filetriggers
+
+* Thu Jan 31 2008 Guillaume Rousse <guillomovitch@mandriva.org> 0.5.6-1mdv2008.1
++ Revision: 160785
+- new version
+  new devel policy
+
+  + Olivier Blin <oblin@mandriva.com>
+    - restore BuildRoot
+
+  + Thierry Vignaud <tvignaud@mandriva.com>
+    - kill re-definition of %%buildroot on Pixel's request
+
+
+* Fri Jan 12 2007 Andreas Hasenack <andreas@mandriva.com> 0.5.2-4mdv2007.0
++ Revision: 108007
+- rebuild
+
+* Sun Oct 15 2006 Stefan van der Eijk <stefan@mandriva.org> 0.5.2-3mdv2007.1
++ Revision: 65185
+- mkrel 3
+
+* Sun Oct 15 2006 Stefan van der Eijk <stefan@mandriva.org> 0.5.2-2mdv2007.1
++ Revision: 64849
+- remove redundant deps
+- fix deps
+- import + make seperate conf package
+- Import radiusclient-ng
+
+* Tue Jun 27 2006 Oden Eriksson <oeriksson@mandriva.com> 0.5.2-1mdv2007.0
+- 0.5.2
+- rediffed P0
+
+* Mon Apr 25 2005 Oden Eriksson <oeriksson@mandrakesoft.com> 0.5.0-1mdk
+- initial Mandriva package
+
+* Sat Oct 16 2004 Oden Eriksson <oeriksson@mandrakesoft.com> 0.3.2-5mdk
+- fix deps
+
+* Sat Oct 16 2004 Oden Eriksson <oeriksson@mandrakesoft.com> 0.3.2-4mdk
+- rebuild
+- misc spec file fixes
+
