@@ -49,6 +49,7 @@ Header files and development documentation for %{name}.
 
 %build
 %configure2_5x \
+    --enable-static \
     --enable-shadow \
     --enable-scp
 
