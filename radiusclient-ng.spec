@@ -5,7 +5,7 @@
 Summary:	Radiusclient library and tools
 Name:		radiusclient-ng
 Version:	0.5.6
-Release:	4
+Release:	5
 License:	BSD
 Group:		System/Servers
 URL:		http://developer.berlios.de/projects/radiusclient-ng/
