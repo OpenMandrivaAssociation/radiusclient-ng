@@ -1,6 +1,8 @@
 %define	major 2
 %define libname %mklibname %{name} %{major}
 %define devname %mklibname %{name} -d
+%define _disable_lto 1
+%define _disable_rebuild_configure 1
 
 Summary:	Radiusclient library and tools
 Name:		radiusclient-ng
