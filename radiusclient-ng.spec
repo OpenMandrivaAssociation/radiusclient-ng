@@ -10,7 +10,7 @@ Version:	0.5.6
 Release:	14
 License:	BSD
 Group:		System/Servers
-Url:		http://developer.berlios.de/projects/radiusclient-ng/
+Url:		https://developer.berlios.de/projects/radiusclient-ng/
 Source0:	http://download.berlios.de/radiusclient-ng/%{name}-%{version}.tar.gz
 
 %description
